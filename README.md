@@ -1,5 +1,16 @@
 # Tennis Game Challenge
 
+## How to run the project
+- mvn clean install
+- nvm i
+
+## For Dev
+For some standard run on every PR
+- nvm run prettier-write
+
+## Troubleshooting
+ - In case Intellij does not start the project, run the `mvn clean install` before opening the project on the IDE
+
 ## About this Kata
 
 This short and simple Kata should be performed using  **Test Driven Development**  (TDD).
