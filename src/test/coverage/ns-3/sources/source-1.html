@@ -1,0 +1,258 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GameSet</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">features.gameset</a>
+</div>
+
+<h1>Coverage Summary for Class: GameSet (features.gameset)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameSet</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.4%
+  </span>
+  <span class="absValue">
+    (53/55)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package features.gameset;
+&nbsp;
+&nbsp;import errorhandling.GameSetInvalidScoringForPlayer;
+&nbsp;import features.player.Player;
+&nbsp;import features.printdisplay.MessageDisplay;
+&nbsp;
+&nbsp;public class GameSet {
+&nbsp;
+&nbsp;  private final Player playerOne;
+&nbsp;  private final Player playerTwo;
+&nbsp;  private int playerOneScore;
+&nbsp;  private int playerTwoScore;
+&nbsp;  private Player winnerPlayer;
+&nbsp;  private boolean deuce;
+&nbsp;  private boolean deuceMode;
+&nbsp;  private String lastScorePlayer;
+&nbsp;
+<b class="fc">&nbsp;  public GameSet(Player playerOne, Player playerTwo) {</b>
+<b class="fc">&nbsp;    this.playerOne = playerOne;</b>
+<b class="fc">&nbsp;    this.playerTwo = playerTwo;</b>
+<b class="fc">&nbsp;    this.playerOneScore = 0;</b>
+<b class="fc">&nbsp;    this.playerTwoScore = 0;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public int getPlayerScore(Player player) {
+<b class="fc">&nbsp;    if (playerOne.name().equals(player.name())) {</b>
+<b class="fc">&nbsp;      return getPlayerOneScore();</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      return getPlayerTwoScore();</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  public void checkForDeuce(Player gameSetWinner) {
+<b class="fc">&nbsp;    if (getPlayerScore(gameSetWinner) &lt; 3) {</b>
+&nbsp;      return;
+&nbsp;    }
+<b class="fc">&nbsp;    if (isScoreTie()) {</b>
+<b class="fc">&nbsp;      setDeuce(true);</b>
+<b class="fc">&nbsp;      setDeuceMode(true);</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      setDeuce(false);</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  public boolean isScoreTie() {
+<b class="fc">&nbsp;    return getPlayerOneScore() == getPlayerTwoScore();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public Player playPoint() {
+<b class="fc">&nbsp;    double random = Math.random();</b>
+<b class="fc">&nbsp;    if (random &gt; 0.5) {</b>
+<b class="fc">&nbsp;      return playerOne;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    return playerTwo;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public boolean hasVictoryCondition(Player pointWinner) {
+<b class="fc">&nbsp;    int gameSetWinnerScore = getPlayerScore(pointWinner);</b>
+<b class="fc">&nbsp;    if (gameSetWinnerScore &lt; 3) {</b>
+<b class="fc">&nbsp;      return false;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    int scoreDifference = getScoreDifference();</b>
+<b class="fc">&nbsp;    return (gameSetWinnerScore &gt; 3) &amp;&amp; (scoreDifference &gt;= 2);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void scoreWinnerPoint(Player pointWinner) {
+&nbsp;    try {
+<b class="fc">&nbsp;      if (playerOne.name().equals(pointWinner.name())) {</b>
+<b class="fc">&nbsp;        scorePointForPlayerOne(pointWinner);</b>
+&nbsp;      } else {
+<b class="fc">&nbsp;        scorePointForPlayerTwo(pointWinner);</b>
+&nbsp;      }
+<b class="nc">&nbsp;    } catch (GameSetInvalidScoringForPlayer e) {</b>
+<b class="nc">&nbsp;      MessageDisplay.logErrorSimulator(e.getMessage());</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  private int getScoreDifference() {
+<b class="fc">&nbsp;    return Math.abs(getPlayerOneScore() - getPlayerTwoScore());</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  private void scorePointForPlayerOne(Player player)
+&nbsp;    throws GameSetInvalidScoringForPlayer {
+<b class="fc">&nbsp;    if (playerOne.name().equals(player.name())) {</b>
+<b class="fc">&nbsp;      this.playerOneScore++;</b>
+<b class="fc">&nbsp;      this.lastScorePlayer = player.name();</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      String errorMessage = String.format(</b>
+&nbsp;        &quot;Was not able to score points for %s. Informed player was %s&quot;,
+<b class="fc">&nbsp;        playerOne.name(),</b>
+<b class="fc">&nbsp;        player.name()</b>
+&nbsp;      );
+<b class="fc">&nbsp;      throw new GameSetInvalidScoringForPlayer(errorMessage);</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  private void scorePointForPlayerTwo(Player player)
+&nbsp;    throws GameSetInvalidScoringForPlayer {
+<b class="fc">&nbsp;    if (playerTwo.name().equals(player.name())) {</b>
+<b class="fc">&nbsp;      this.playerTwoScore++;</b>
+<b class="fc">&nbsp;      this.lastScorePlayer = player.name();</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      String errorMessage = String.format(</b>
+&nbsp;        &quot;Was not able to score points for %s. Informed player was %s&quot;,
+<b class="fc">&nbsp;        playerTwo.name(),</b>
+<b class="fc">&nbsp;        player.name()</b>
+&nbsp;      );
+<b class="fc">&nbsp;      throw new GameSetInvalidScoringForPlayer(errorMessage);</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  public int getPlayerOneScore() {
+<b class="fc">&nbsp;    return playerOneScore;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public int getPlayerTwoScore() {
+<b class="fc">&nbsp;    return playerTwoScore;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public Player getPlayerOne() {
+<b class="fc">&nbsp;    return playerOne;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public Player getPlayerTwo() {
+<b class="fc">&nbsp;    return playerTwo;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public Player getWinnerPlayer() {
+<b class="fc">&nbsp;    return winnerPlayer;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void setWinnerPlayer(Player winnerPlayer) {
+<b class="fc">&nbsp;    this.winnerPlayer = winnerPlayer;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void setDeuce(boolean deuce) {
+<b class="fc">&nbsp;    this.deuce = deuce;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public boolean isDeuce() {
+<b class="fc">&nbsp;    return deuce;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public boolean isDeuceMode() {
+<b class="fc">&nbsp;    return deuceMode;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void setDeuceMode(boolean deuceMode) {
+<b class="fc">&nbsp;    this.deuceMode = deuceMode;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public String getLastScorePlayer() {
+<b class="fc">&nbsp;    return lastScorePlayer;</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-09-08 20:51</div>
+</div>
+</body>
+</html>

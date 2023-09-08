@@ -1,0 +1,16 @@
+{
+  "name": "tennis-game-globalchecks",
+  "version": "0.2.4",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "prettier-check": "prettier --check '**/*.java'",
+    "prettier-write": "prettier --write '**/*.java'"
+  },
+  "devDependencies": {
+    "@mixer/parallel-prettier": "^2.0.1",
+    "prettier": "^2.8.8",
+    "prettier-plugin-java": "^1.1.1",
+    "prettier-plugin-organize-imports": "^2.3.4"
+  }
+}

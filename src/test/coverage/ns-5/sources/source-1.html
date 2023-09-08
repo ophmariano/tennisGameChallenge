@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MessageDisplay</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">features.printdisplay</a>
+</div>
+
+<h1>Coverage Summary for Class: MessageDisplay (features.printdisplay)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MessageDisplay</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    71.4%
+  </span>
+  <span class="absValue">
+    (5/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (12/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package features.printdisplay;
+&nbsp;
+&nbsp;import features.gameset.GameSet;
+&nbsp;
+<b class="nc">&nbsp;public class MessageDisplay {</b>
+&nbsp;
+&nbsp;  private static void printMessage(String message) {
+<b class="fc">&nbsp;    System.out.println(message);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public static void finalGameScore(GameSet gameSet) {
+<b class="fc">&nbsp;    String gameFinalScoreBoard = String.format(</b>
+&nbsp;      &quot;Game total points made was: %s | %s - %s | %s&quot;,
+<b class="fc">&nbsp;      gameSet.getPlayerOne().name(),</b>
+<b class="fc">&nbsp;      gameSet.getPlayerOneScore(),</b>
+<b class="fc">&nbsp;      gameSet.getPlayerTwoScore(),</b>
+<b class="fc">&nbsp;      gameSet.getPlayerTwo().name()</b>
+&nbsp;    );
+<b class="fc">&nbsp;    printMessage(gameFinalScoreBoard);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public static void winner(String winnerName) {
+<b class="fc">&nbsp;    String gameWinner = String.format(</b>
+&nbsp;      &quot;Congratulations on winning %s&quot;,
+&nbsp;      winnerName
+&nbsp;    );
+<b class="fc">&nbsp;    printMessage(gameWinner);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public static void gameStart() {
+<b class="fc">&nbsp;    printMessage(&quot;The game starts!!!!&quot;);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public static void gameScore(
+&nbsp;    String playerOneName,
+&nbsp;    String scoreSection,
+&nbsp;    String playerTwoName
+&nbsp;  ) {
+<b class="fc">&nbsp;    String gameFinalScoreBoard = String.format(</b>
+&nbsp;      &quot;%s | %s | %s&quot;,
+&nbsp;      playerOneName,
+&nbsp;      scoreSection,
+&nbsp;      playerTwoName
+&nbsp;    );
+<b class="fc">&nbsp;    printMessage(gameFinalScoreBoard);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public static void logErrorSimulator(String logMessage) {
+<b class="nc">&nbsp;    printMessage(logMessage);</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-09-08 20:51</div>
+</div>
+</body>
+</html>
