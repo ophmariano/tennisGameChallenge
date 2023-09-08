@@ -1,0 +1,183 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ScoreRules</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">features.score</a>
+</div>
+
+<h1>Coverage Summary for Class: ScoreRules (features.score)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ScoreRules</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96%
+  </span>
+  <span class="absValue">
+    (24/25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package features.score;
+&nbsp;
+&nbsp;import features.gameset.GameSet;
+&nbsp;import features.printdisplay.MessageDisplay;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;
+<b class="nc">&nbsp;public class ScoreRules {</b>
+&nbsp;
+<b class="fc">&nbsp;  private static final Map&lt;Integer, String&gt; SCORE_DISPLAY_NAME = new HashMap&lt;&gt;();</b>
+&nbsp;
+&nbsp;  static {
+<b class="fc">&nbsp;    SCORE_DISPLAY_NAME.put(0, &quot;Love&quot;);</b>
+<b class="fc">&nbsp;    SCORE_DISPLAY_NAME.put(1, &quot;15&quot;);</b>
+<b class="fc">&nbsp;    SCORE_DISPLAY_NAME.put(2, &quot;30&quot;);</b>
+<b class="fc">&nbsp;    SCORE_DISPLAY_NAME.put(3, &quot;40&quot;);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public static void displayGameScore(GameSet gameSet) {
+<b class="fc">&nbsp;    if (gameSet.getWinnerPlayer() != null) {</b>
+&nbsp;      return;
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    if (gameSet.isDeuceMode()) {</b>
+<b class="fc">&nbsp;      displayDeuceModeScore(gameSet);</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      displayNormalModeScore(gameSet);</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  private static void displayNormalModeScore(GameSet gameSet) {
+&nbsp;    String scorePointsSection;
+&nbsp;    // TODO: Paulo - feature-01: check with PM for this part since it&#39;s not on requirements but is custom in games
+&nbsp;    //    if (gameSet.isScoreTie()) {
+&nbsp;    //      scorePointsSection =
+&nbsp;    //        String.format(
+&nbsp;    //          &quot;%s ALL&quot;,
+&nbsp;    //          SCORE_DISPLAY_NAME.get(gameSet.getPlayerOneScore())
+&nbsp;    //        );
+&nbsp;    //    } else {
+&nbsp;    //      scorePointsSection =
+&nbsp;    //        String.format(
+&nbsp;    //          &quot;%s - %s&quot;,
+&nbsp;    //          SCORE_DISPLAY_NAME.get(gameSet.getPlayerOneScore()),
+&nbsp;    //          SCORE_DISPLAY_NAME.get(gameSet.getPlayerTwoScore())
+&nbsp;    //        );
+&nbsp;    //    }
+&nbsp;
+<b class="fc">&nbsp;    scorePointsSection =</b>
+<b class="fc">&nbsp;      String.format(</b>
+&nbsp;        &quot;%s - %s&quot;,
+<b class="fc">&nbsp;        SCORE_DISPLAY_NAME.get(gameSet.getPlayerOneScore()),</b>
+<b class="fc">&nbsp;        SCORE_DISPLAY_NAME.get(gameSet.getPlayerTwoScore())</b>
+&nbsp;      );
+&nbsp;
+<b class="fc">&nbsp;    MessageDisplay.gameScore(</b>
+<b class="fc">&nbsp;      gameSet.getPlayerOne().name(),</b>
+&nbsp;      scorePointsSection,
+<b class="fc">&nbsp;      gameSet.getPlayerTwo().name()</b>
+&nbsp;    );
+&nbsp;  }
+&nbsp;
+&nbsp;  private static void displayDeuceModeScore(GameSet gameSet) {
+&nbsp;    String scorePointsSection;
+<b class="fc">&nbsp;    if (gameSet.isDeuce()) {</b>
+<b class="fc">&nbsp;      scorePointsSection = &quot;Deuce&quot;;</b>
+&nbsp;    } else {
+&nbsp;      scorePointsSection =
+<b class="fc">&nbsp;        gameSet.getPlayerOne().name().equals(gameSet.getLastScorePlayer())</b>
+<b class="fc">&nbsp;          ? &quot;Adv - 40&quot;</b>
+<b class="fc">&nbsp;          : &quot;40 - Adv&quot;;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    MessageDisplay.gameScore(</b>
+<b class="fc">&nbsp;      gameSet.getPlayerOne().name(),</b>
+&nbsp;      scorePointsSection,
+<b class="fc">&nbsp;      gameSet.getPlayerTwo().name()</b>
+&nbsp;    );
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-09-08 20:51</div>
+</div>
+</body>
+</html>
