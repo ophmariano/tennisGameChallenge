@@ -1,7 +1,6 @@
 package features.tennismatch;
 
 import features.gameset.GameSet;
-import features.tennismatch.TennisMatch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
